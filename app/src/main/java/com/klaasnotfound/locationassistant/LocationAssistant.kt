@@ -273,6 +273,8 @@ class LocationAssistant
             fromDialog: DialogInterface.OnClickListener
         )
 
+        fun onPermissionGranted()
+
         /**
          * Called when an error has occurred.
          *
@@ -550,7 +552,7 @@ class LocationAssistant
 
     }
 
-    protected fun acquireLocation() {
+    private fun acquireLocation() {
         if (!this.permissionGranted) this.checkLocationPermission()
         if (!this.permissionGranted) {
             if (this.numTimesPermissionDeclined >= 2) return
@@ -599,11 +601,6 @@ class LocationAssistant
         try {
             val task = this.mFusedLocationClient.lastLocation
             task.addOnSuccessListener(this.activity!!) { location ->
-                if (location != null) {
-                    Toast.makeText(this.context, "location woo", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this.context, "location is null", Toast.LENGTH_SHORT).show()
-                }
                 this.onLocationChanged(location)
             }
         } catch (e: SecurityException) {
@@ -636,6 +633,10 @@ class LocationAssistant
             this.context,
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
+
+        if (this.permissionGranted) {
+            this.listener!!.onPermissionGranted()
+        }
     }
 
     private fun requestLocation() {
