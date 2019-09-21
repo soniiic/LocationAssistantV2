@@ -1,4 +1,8 @@
-## LocationAssistant
+## LocationAssistantV2
+
+I have updated the LocationAssistant to remove the deprecated libraries and converted the code to Kotlin
+
+-----
 
 Building a location-aware app on Android can be a hassle.
 This project provides the __LocationAssistant__, a simple utility class that does most of the heavy lifting for you.
