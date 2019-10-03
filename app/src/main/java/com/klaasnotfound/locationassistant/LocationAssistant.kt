@@ -30,7 +30,6 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -653,7 +652,6 @@ class LocationAssistant
         val settingsClient = LocationServices.getSettingsClient(this.context)
         val task = settingsClient.checkLocationSettings(locationSettingsRequest)
         task.addOnSuccessListener(this.activity!!) { locationSettingsResponse ->
-            Toast.makeText(this.context, "addOnSuccessListener", Toast.LENGTH_SHORT).show()
             this.locationRequested = true
             this.locationStatusOk = locationSettingsResponse.locationSettingsStates.isLocationUsable
             this.checkInitialLocation()
@@ -662,7 +660,6 @@ class LocationAssistant
 
         task.addOnFailureListener(this.activity!!) { e ->
             this.locationRequested = true
-            Toast.makeText(this.context, "addOnFailureListener", Toast.LENGTH_SHORT).show()
             if (e is ResolvableApiException) {
 
                 if (e.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED) {
